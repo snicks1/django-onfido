@@ -313,7 +313,7 @@ class Applicant(BaseModel):
     """An Onfido applicant record."""
 
     user = models.OneToOneField(
-        settings.AUTH_USER_MODEL,
+        settings.AUTH_USER_MODEL, on_delete=models.CASCADE,
         help_text=_("Django user that maps to this applicant."),
         related_name='onfido_applicant'
     )
@@ -349,12 +349,12 @@ class Check(BaseStatusModel):
     )
 
     user = models.ForeignKey(
-        settings.AUTH_USER_MODEL,
+        settings.AUTH_USER_MODEL, on_delete=models.CASCADE,
         help_text=_("The Django user (denormalised from Applicant to make navigation easier)."),  # noqa
         related_name='onfido_checks'
     )
     applicant = models.ForeignKey(
-        Applicant,
+        Applicant, on_delete=models.CASCADE,
         help_text=_("The applicant for whom the check is being made."),
         related_name='checks'
     )
@@ -416,12 +416,12 @@ class Report(BaseStatusModel):
     )
 
     user = models.ForeignKey(
-        settings.AUTH_USER_MODEL,
+        settings.AUTH_USER_MODEL, on_delete=models.CASCADE,
         help_text=_("The Django user (denormalised from Applicant to make navigation easier)."),  # noqa
         related_name='onfido_reports'
     )
     onfido_check = models.ForeignKey(
-        Check,
+        Check, on_delete=models.CASCADE,
         help_text=_("Check to which this report is attached."),
         related_name='reports'
     )
